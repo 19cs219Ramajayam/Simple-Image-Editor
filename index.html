@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1024, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script src="https://superal.github.io/canvas2image/canvas2image.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="media.css">
+    <title>Photo Editor</title>
+</head>
+<body>
+    <h1 id="Name" style="text-align:center;color: blueviolet; text-transform: capitalize;margin-top: 20px;"></h1>
+    <div class="header">
+        <div class="color">
+        <div class="nav">
+            <h3>Simple Photo Editor</h3>
+            <a id="MediaSize" href="https://www.facebook.com/profile.php?id=100058897973787" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+            <a id="MediaSize" href="https://twitter.com/JaganKasiSon" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+            <a id="MediaSize" href="https://web.telegram.org/k/" target="_blank"><i class="fa fa-telegram" aria-hidden="true"></i></a>
+            <a id="MediaSize" href="https://wa.me/8778405446" target="_blank"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
+            <a id="MediaSize" href="https://www.instagram.com/ramajayam411/" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+            <button id="btn" onclick="A3()">A</button>
+            <button id="btn" onclick="A2()">A-</button>
+            <button id="btn" onclick="A1()">A+</button>
+            <button id="btn" onclick="White()">White</button>
+            <Button id="btn" onclick="Black()">Black</Button>
+            <input type="color" onchange="navColor()" name="NavColor" id="NavColor">
+            <button id="btn" onclick="out();">Close</button>
+        </div>
+        <hr>
+        <div class="center-of-webpage">
+        <div id="pse">
+            <button id="pdf-Blue" onclick="pdf()"><i style="font-size: 20px;"class='fa fa-file-pdf-o'></i> PDF</button>
+            <button id="save-green"><i style="font-size: 20px;"class="fa fa-save"></i> SAVE</button>
+            <button id="exits-red"onclick="Exits()"><i style="font-size: 20px;"class="fa fa-sign-out"></i> EXITS</button>
+        </div>
+    </div>
+<div class="main">
+    <h2 id="tools">Tools</h2>
+    <div class="center-of-webpage">
+    <div id="MainTools">
+        <abbr title="Filter Tools"> <button id="btn-disabled"  onclick="FilterShow()"><img src="filter.png" id="IconForFilter"width="30" height="30"></i></button></abbr>
+        <abbr title="Text Tools">   <button id="btn-disabled" onclick="TextTools()"><img src="text.png" id="IconForText"width="30" height="30"></i></button></abbr>
+        <abbr title="Image Shape">  <button id="btn-disabled" onclick="ShapeTools()"><img src="shapes.png" id="IconForShape" alt="shapes icons" width="30" height="30"></button></abbr>
+        <abbr title="Image Size">   <button id="btn-disabled" onclick="SizeTools()"><img src="size.png" id="IconForSize" alt="Sizeicons" width="30" height="30"></button></abbr>
+        <abbr title="Upload Image"> <button id="btn-disabled" ><label for="Image"><i style="font-size: 34px;"class="fa fa-upload" aria-hidden="true"></i></label></button></abbr> 
+        <abbr title="Image Frame">  <button id="btn-disabled" onclick="ImageFrame()"><img src="border.png" id="IconForFrame" alt="Size icons" width="30" height="30"></button></abbr>
+        <abbr title="Remove Background"><button id="btn-disabled"onclick="RemoveBackground()"><img src="background.png" id="IconForSize" alt="Size icons" width="30" height="30"></button></abbr>
+        <abbr title="Add Image"><button id="btn-disabled"  onclick="AddImage()"   ><label for="Image2"><img src="add2.png" id="IconForSize" alt="Size icons" width="30" height="30"></label></button></abbr>
+        <abbr title="Rotation Image"><button id="btn-disabled" onclick="Rotation()"><img src="rotation.jpg" id="IconForSize" alt="Size icons" width="30" height="30"></button></abbr>
+        <abbr title="Flip Image"><button id="btn-disabled"onclick="Flip()"><img src="Flip.png" id="IconForSize" alt="Size icons" width="30" height="30"></button></abbr>
+        <input type="file" name="Image" id="Image" onchange="image(event)">
+    </div>
+</div>
+<!-- Display Image -->
+    <div class="center-of-webpage2">
+    <div class="screenshot">
+        <div class="problem">
+        <a  id="download">     
+            <div class="choose">
+           <label for="Image" id="curser_pointer">  
+                 <i style="font-size: 34px;"class="fa fa-upload" aria-hidden="true"></i><br><br>
+                 Choose The Image</label>
+            </div>
+            <img  id="Choosed-image">
+            <p id="textShowOnImage"></p>
+        </a>
+            <!--------------------------------------- Add Image -------------------------------------------------->
+
+<input type="file" name="Image2" id="Image2" onchange="Add(event)">
+<div class="center-of-webpage">
+    <img  id="Choosed-image2" width="15" height="15">
+   </div>
+    </div>
+      </div>
+    </div>
+</div>
+        <h2 id="pro">Properties</h2>
+        <div class="container-Tools">
+            <div class="propertiesCenter">
+            <div class="row">
+            <button id="BlurRangeShow">Blur</button><br>
+            <div class="column">
+            <p><strong id="Blur-Value1">Blur</strong>
+                <span id="Blur-Value2">0</span></p>
+            <input type="range"  value="0" name="Blur" id="Blur"  min="0"  max="100" onchange="Blur()"><br>
+        </div>
+            <button  onclick="GrayScaleRangeShow()">GrayScale</button><br>
+            <div class="column">
+            <p><strong id="GrayScale-Value1">GrayScale</strong>
+                <span id="GrayScale-Value2">0</span></p>
+            <input type="range"  value="0" name="GrayScale" id="GrayScale" min="0"  max="100" onchange="GrayScale();"><br>
+            </div>
+            <button  onclick="BrightnessRangeShow()">Brightness</button><br>
+            <div class="column">
+            <p><strong id="Brightness-Value1">Brightness</strong>
+                <span id="Brightness-Value2">0</span></p>
+            <input type="range"  value="0" name="Brightness" id="Brightness" min="0"  max="100" onchange="Brightness()"><br>
+            </div>
+        </div>
+        <div class="row">
+            <button  onclick="ContrastRangeShow()">Contrast</button><br>
+            <div class="column">
+            <p><strong id="Contrast-Value1">Contrast</strong>
+                <span id="Contrast-Value2">0</span></p>
+            <input type="range"  value="0" name="Contrast" id="Contrast" min="0"  max="100" onchange="Contrast()"><br>
+            </div>
+            <button  onclick="HueRotateRangeShow()">Hue Rotate</button><br>
+            <div class="column">
+            <p><strong id="Rotate-Value1">Hue Rotate</strong>
+                <span id="Rotate-Value2">0</span></p>
+            <input type="range"  value="0" name="Rotate" id="Rotate" min="0"  max="360" onchange="Rotate()"><br>
+            </div>
+            <button  onclick="InvertRangeShow()">Invert</button><br>
+            <div class="column">
+            <p><strong id="Invert-Value1">Invert</strong>
+                <span id="Invert-Value2">0</span></p>
+            <input type="range"  value="0" name="Invert" id="Invert" min="0"  max="100" onchange="Invert()"><br>
+        </div>    
+        </div>
+            <div class="row">            
+            <button  onclick="OpacityRangeShow()">Opacity</button><br>
+            <div class="column">
+            <p><strong id="Opacity-Value1">Opacity</strong>
+                <span id="Opacity-Value2">0</span></p>
+            <input type="range" name="Opacity" value="0" id="Opacity" min="0"  max="100" onchange="Opacity()"><br>
+        </div>
+            <button  onclick="SaturateRangeShow()">Saturate</button><br>
+            <div class="column">
+            <p><strong id="Saturate-Value1">Saturate</strong>
+                <span id="Saturate-Value2">0</span></p>
+            <input type="range" name="Saturate"  value="0"id="Saturate" min="0"  max="100" onchange="Saturate()"><br>
+            </div>
+            <button  onclick="SepiaRangeShow()">Sepia</button><br>
+            <div class="column">
+            <p><strong id="Sepia-Value1">Sepia</strong>
+                <span id="Sepia-Value2">0</span></p>
+            <input type="range" name="Sepia"  value="0" id="Sepia" min="0"  max="100" onchange="Sepia()"><br>
+    </div>
+            </div>
+            <div class="row">
+            <button  onclick="ShadowRangeShow()">Shadow</button><br>
+            <div class="column">
+            <p><strong id="TopShadow-Value1">Top</strong>
+                <span id="TopShadow-Value2">0</span></p>
+            <input type="range" name="TopShadow"  value="0" id="TopShadow" min="0"  max="100" onchange="TopShadow()">
+            <p><strong id="LeftShadow-Value1">Left</strong>
+                <span id="LeftShadow-Value2">0</span></p>
+            <input type="range" name="LeftShadow"  value="0" id="LeftShadow" min="0"  max="100" onchange="LeftShadow()">
+            <p><strong id="BottomShadow-Value1">Bottom</strong>
+                <span id="BottomShadow-Value2">0</span></p>
+            <input type="range" name="BottomShadow"  value="0" id="BottomShadow" min="0"  max="100" onchange="BottomShadow()">
+            <p><strong id="RightShadow-Value1">Right</strong>
+                <span id="RightShadow-Value2">0</span></p>
+            <input type="range" name="RightShadow"  value="0" id="RightShadow" min="0"  max="100" onchange="RightShadow()">
+            <p><strong id="BlurShadow-Value1">Blur</strong>
+                <span id="BlurShadow-Value2">0</span></p>
+            <input type="range" name="BlurShadow"  value="0" id="BlurShadow" min="0"  max="100" onchange="BlurShadow()"><br>
+            <input type="color" name="ColorShadow"  value="0" id="ColorShadow" min="0"  max="100" onchange="ColorShadow()">
+     </div>
+    </div>
+    </div>
+    </div>
+        <div id="ContaineTextTool">
+            <div class="propertiesCenter">
+            <div class="row">
+            <button onclick="WriteTheText()">Text</button><br>
+            <input type="text" name="text" id="text" placeholder="write some thing..." onchange="TextAppear()">
+            </div>
+            <div id="TextTools">
+                <br>
+                <div class="row">
+                    <button  onclick="LeftButton()">Left</button><br>
+                    <div class="column">
+                    <p><strong id="Left-Value1">Left</strong>
+                        <span id="Left-Value2">0</span></p>
+                    <input type="range"  value="0" name="left" id="left" onchange="left()"/><br>
+                </div>
+                    <button  onclick="BottomButton()">Bottom</button><br>
+                <div class="column">
+                <p><strong id="Bottom-Value1">Bottom</strong>
+                    <span id="Bottom-Value2">0</span></p>
+                    <input type="range"  value="0" name="bottom" id="bottom" onchange="bottom()"><br>
+                </div>
+                    <button  onclick="TextColorButton()">Color</button><br>
+               <div class="column">     
+               <input type="color" name="color" id="color" onchange="Color()"/><br>
+                </div>
+            </div>
+                <div class="row">
+                    <button  onclick="TextBackGroundColorButton()">Background Color</button><br>
+                    <div class="column">
+                    <input type="color" name="BackgroundColor" id="BackgroundColor" onchange="BackgroundColor()"/><br>
+                </div>
+                    <button  onclick="TextFontButton()">Font Size</button><br>
+                <div class="column">
+                <p><strong id="font-Value1">Font Size</strong>
+                    <span id="font-Value2">0</span></p>
+                    <input type="range"  value="0" name="font" id="font" onchange="Font()"><br>
+                </div>
+                    <button  onclick="TextSpaceButton()">Font Space</button><br>
+                <div class="column">
+                <p><strong id="space-Value1">Space</strong>
+                    <span id="space-Value2">0</span></p>
+                    <input type="range"  value="0" name="space" id="space" onchange="space()"><br>
+            </div>
+        </div>
+                <div class="row">
+                <button  onclick="TextBorderRadiusButton()">Radius</button><br>
+                <div class="column">
+                <p><strong id="radius-Value1">Radius</strong>
+                    <span id="radius-Value2">0</span></p>
+                    <input type="range"  value="0" name="radius" id="radius"onchange="radius()"><br>
+                </div>
+                    <button  onclick="TextBorderWidthButton()">Width</button><br>
+                <div class="column">
+                <p><strong id="BorderWidth-Value1">Border Width</strong>
+                    <span id="BorderWidth-Value2">0</span></p>
+                    <input type="range"  value="0" name="BorderWidth" id="BorderWidth"onchange="BorderWidth()"><br>
+                </div>
+                    <button  onclick="TextFontFamilyButton()">Font Family</button><br>
+                <div class="column">
+                <select name="FontFamily" id="FontFamily" onchange="FontFamily()">
+                    <option value="sans-serif">sans-serif</option>
+                    <option value="monospace">monospace</option>
+                    <option value="antasy">antasy</option>
+                    <option value="cursive">cursive</option>
+                    <option value="serif">serif</option>
+                    <option value="Arial">Arial</option>
+                    <option value="Times New Roman">Times New Roman</option>
+                    <option value="Times">Times</option>
+                </select>
+            </div>
+            </div>
+            <div class="row">
+                <button onclick="TBSE()">Text Shadow</button><br>
+                <div class="column">    
+                <p><strong id="TextShadowTop-Value1">top</strong>
+                        <span id="TextShadowTop-Value2">0</span></p>
+                <input type="range" name="TextShadowTop" id="TextShadowTop"  value="0" onchange="TextShadowTop()">
+                    <p><strong id="TextShadowLeft-Value1">Left</strong>
+                        <span id="TextShadowLeft-Value2" >0</span></p>
+                <input type="range" name="TextShadowLeft" id="TextShadowLeft"  value="0" onchange="TextShadowLeft()">
+                    <p><strong id="TextShadowBottom-Value1">Bottom</strong>
+                        <span id="TextShadowBottom-Value2">0</span></p>
+                <input type="range" name="TextShadowBottom" id="TextShadowBottom"  value="0" onchange="TextShadowBottom()">
+                    <p><strong id="TextShadowRight-Value1">Right</strong>
+                        <span id="TextShadowRight-Value2">0</span></p>
+                <input type="range" name="TextShadowRight" id="TextShadowRight"  value="0" onchange="TextShadowRight()">
+                    <p><strong id="TextShadowBlur-Value1">Blur</strong>
+                        <span id="TextShadowBlur-Value2">0</span></p>
+                <input type="range" name="TextShadowBlur" id="TextShadowBlur"  value="0" onchange="TextShadowBlur()"><br>
+                <input type="color" name="TextShadowColor" id="TextShadowColor"  value="0" onchange="TextShadowColor()"><br>
+            </div>
+            </div>
+            <div class="row">
+                <button onclick="TBW()">Border Pixel</button><br>
+                <div class="column">    
+                <p><strong id="TextBorderPixels-Value1">pixel</strong>
+                        <span id="TextBorderPixels-Value2">0</span></p>
+                <input type="range" name="Textpixel" id="Textpixel"  value="0" onchange="Textpixel()"><br>
+            </div>
+                <button onclick="TBS()">Border Style</button><br>
+                <div class="column">
+                <select name="Textstyle" id="Textstyle" onchange="Textstyle()">
+                    <option value="solid">solid</option>
+                    <option value="double">double</option>
+                    <option value="groove">groove</option>
+                    <option value="dashed">dashed</option>
+                    <option value="dotted">dotted</option>
+                    <option value="hidden">hidden</option>
+                    <option value="outset">outset</option>
+                    <option value="inset">inset</option>
+                    <option value="ridge">ridge</option>
+                    <option value="none">none</option> 
+                </select><br>
+                </div>     
+                <button onclick="TBC()">Border Color</button><br>
+                     <div class="column">
+                     <input type="color" name="TextborderColor" id="TextborderColor" onchange="TextBorderColor()"><br>
+                </div>
+                </div>
+                    <div class="buttonClickExcute">
+                <div class="row">
+                    <button onclick="UpperCase()">UpperCase</button><br>
+                    <button onclick="LowerCase()">LowerCase</button><br>
+                    <button onclick="Capitalize()">Capitalize</button><br>
+                    <button onclick="UnderLine()">UnderLine</button><br>
+                    <button onclick="Bold()">Bold</button><br>
+                    <button onclick="Italic()">Italic</button><br>
+                    <button onclick="Normal()">Normal</button>
+                </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="containerImageTools">
+            <div id="ShapeTool">
+                <div class="propertiesCenter">
+            <div class="row">
+            <button onclick="ButtonShape()">Shape</button><br>
+            <div class="column">
+            <p><strong id="Shape-Value1">Shape</strong>
+                <span id="Shape-Value2">0</span></p>
+                <input type="range" name="Shape" id="Shape" value="0" max="100"onchange="Shape()"><br>
+            </div>
+                <button onclick="ButtonRect()">Crop</button><br>
+            <div class="column">
+            <p><strong id="TopRect-Value1">top</strong>
+                <span id="TopRect-Value2">0</span></p>
+                <input type="range" name="TopRect" id="TopRect" value="0"max="680" onchange="TopRect()"><br>
+                <p><strong id="RightRect-Value1">Right</strong>
+                    <span id="RightRect-Value2">0</span></p>
+                <input type="range" name="RightRect" id="RightRect" value="0"max="680"onchange="RightRect()"><br> 
+                <p><strong id="BottomRect-Value1">Bottom</strong>
+                    <span id="BottomRect-Value2">0</span></p>
+                <input type="range" name="BottomRect" id="BottomRect" value="0"max="680"onchange="BottomRect()"><br>
+                <p><strong id="LeftRect-Value1">Left</strong>
+                    <span id="LeftRect-Value2">0</span></p>
+                <input type="range" name="LeftRect" id="LeftRect" value="0"max="680"onchange="LeftRect()">
+            </div>
+            </div>
+            </div>
+            </div>
+        <div id="SizeTool">
+            <div class="propertiesCenter">
+                <div class="row">
+                <button onclick="ButtonWidth()">Width</button><br>
+                <div class="column">
+                <p><strong id="Width-Value1">Width</strong>
+                    <span id="Width-Value2">0</span></p>
+                <input type="range" name="Width" id="Width"  value="0" max="100" onchange="Width()"><br>
+            </div>
+                <button onclick="ButtonHeight()">Height</button><br>
+                <div class="column">
+                <p><strong id="Height-Value1">Height</strong>
+                    <span id="Height-Value2">0</span></p>
+                <input type="range" name="Height" id="Height"  value="0" max="35" onchange="Height()"><br>
+            </div>
+            </div>
+            <div class="row">
+                <button onclick="ButtonMaxWidth()">Max Width</button><br>
+                <div class="column">
+                <p><strong id="MaxWidth-Value1">Max Width</strong>
+                    <span id="MaxWidth-Value2">0</span></p>
+                <input type="range" name="MaxWidth" id="MaxWidth" max="100" value="0" onchange="MaxWidth()"><br>
+            </div>
+                <button onclick="ButtonMaxHeight()">Max Height</button><br>
+                <div class="column">
+                <p><strong id="MaxHeight-Value1">Max Height</strong>
+                    <span id="MaxHeight-Value2">0</span></p>
+                <input type="range" name="MaxHeight" id="MaxHeight"  value="0" max="35" onchange="MaxHeight()"><br>
+            </div>
+            </div>
+            <div class="row">
+                <button onclick="ButtonMinWidth()">Min Width</button><br>
+                <div class="column">
+                <p><strong id="MinWidth-Value1">Min Width</strong>
+                    <span id="MinWidth-Value2">0</span></p>
+                <input type="range" name="MinWidth" id="MinWidth"  max="100" value="0" onchange="MinWidth()"><br>
+            </div>
+                <button onclick="ButtonMinHeight()">Min Height</button><br>
+                <div class="column">
+                <p><strong id="MinHeight-Value1">Min Height</strong>
+                    <span id="MinHeight-Value2">0</span></p>
+                <input type="range" name="MinHeight" id="MinHeight" max="35" value="0" onchange="MinHeight()">
+        </div>
+    </div>
+    </div>
+    </div>
+</div>
+    <div class="imageFrameTools">
+        <div class="borderImageTools">
+            <div class="propertiesCenter">
+            <div class="row">
+            <button onclick="BW()">Border Width</button><br>
+            <div class="column">
+            <p><strong id="BorderPixels-Value1">Border Width</strong>
+                <span id="BorderPixels-Value2">0</span></p>
+            <input type="range" name="pixel" id="pixel"  value="0" onchange="pixel()"><br>
+        </div>
+            <button onclick="BS()">Border Style</button><br>
+            <div class="column">
+            <select name="style" id="style" onchange="border()">
+                <option value="solid">solid</option>
+                <option value="double">double</option>
+                <option value="groove">groove</option>
+                <option value="dashed">dashed</option>
+                <option value="dotted">dotted</option>
+                <option value="hidden">hidden</option>
+                <option value="outset">outset</option>
+                <option value="inset">inset</option>
+                <option value="ridge">ridge</option>
+                <option value="none">none</option> 
+            </select><br>
+        </div>     
+            <button onclick="BC()">Border Color</button><br>
+                 <div class="column">
+                 <input type="color" name="borderColor" id="borderColor" onchange="BorderColor()"><br>
+            </div>
+            </div>
+            <div class="row">
+                <button onclick="BR()">Border Radius</button><br>
+                <div class="column">
+                <p><strong id="BorderRadius-Value1">Radius</strong>
+                    <span id="BorderRadius-Value2">0</span></p>
+                <input type="range" name="BorderRadius" id="BorderRadius" value="0"onchange="BorderRadius()"><br>
+            </div>
+                <button onclick="BP()">Border Space</button><br>
+                <div class="column">
+                <p><strong id="BorderSpace-Value1">Space</strong>
+                    <span id="BorderSpace-Value2">0</span></p>
+                <input type="range" name="BorderSpace" id="BorderSpace" value="0" onchange="BorderSpace()">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+   
+   
+   
+   <!--------------------------------------Flip The Image----------------------------------------------->
+    
+   
+   
+   <div class="Flip">
+        <div class="propertiesCenter">
+        <div class="row">
+        <button onclick="FT()">Flip Top</button><br>
+        <button onclick="FL()">Flip Left</button><br>
+        <button onclick="FR()">Flip Right</button><br>
+        <button onclick="FB()">Flip Side</button><br>
+    </div>
+    </div>
+    </div>
+   
+   
+   
+    <!-----------------------------------------Rotate The Image---------------------------------------->
+    
+    
+    
+    <div class="Rotate">
+        <div class="propertiesCenter">
+        <div class="row">
+        <button onclick="CW2()">Clock Wise 90</button><br>
+        <button onclick="CW()">Clock Wise 180</button><br>
+        <button onclick="CW1()">Clock Wise 360</button><br>
+    </div>
+    <div class="row">
+        <button onclick="ACW2()">Anti Clock Wise 90</button><br>
+        <button onclick="ACW()">Anti Clock Wise 180</button><br>
+        <button onclick="ACW1()">Anti Clock Wise 360</button><br>
+    </div>
+    <button onclick="RM()">Manually</button>
+    <div class="row">
+        <div class="column">
+        <p><strong id="ClockWise-Value1">Clock Wise</strong>
+            <span id="ClockWise-Value2">0</span></p>
+        <input type="range" name="ClockWise" id="ClockWise" value="0" max="360" onchange="ClockWise()"><br>
+        <p><strong id="AntiClockWise-Value1">Anti Clock Wise</strong>
+            <span id="AntiClockWise-Value2">0</span></p>
+        <input type="range" name="AntiClockWise" id="AntiClockWise" value="0" max="360"onchange="AntiClockWise()"><br>
+    </div>
+</div>
+</div>
+</div>
+<!----------------------------------------Add The New Image Tools------------------------------------->
+<div class="addImageTools">
+    <div class="row">
+        <button onclick="AddWidthbutton()">Width</button><br>
+        <div class="column">
+        <p><strong id="AddWidth-Value1">Width</strong>
+            <span id="AddWidth-Value2">0</span></p>
+        <input type="range" name="AddWidth" id="AddWidth"  value="0" max="100" onchange="AddWidth()"><br>
+    </div>
+        <button onclick="AddHeightbutton()">Height</button><br>
+        <div class="column">
+        <p><strong id="AddHeight-Value1">Height</strong>
+            <span id="AddHeight-Value2">0</span></p>
+        <input type="range" name="AddHeight" id="AddHeight"  value="0" max="100" onchange="AddHeight()"><br>
+    </div>
+</div>
+    <div class="row">
+        <button  onclick="AddTopbutton()">Top</button><br>
+        <div class="column">
+        <p><strong id="AddTop-Value1"></strong>
+            <span id="AddTop-Value2">0</span></p>
+        <input type="range"  value="0" name="AddTop" id="AddTop" onchange="AddTop()"/><br>
+    </div>
+        <button  onclick="AddLeftbutton()">Left</button><br>
+        <div class="column">
+        <p><strong id="AddLeft-Value1">Left</strong>
+            <span id="AddLeft-Value2">0</span></p>
+        <input type="range"  value="0" name="AddLeft" id="AddLeft" onchange="AddLeft()"/><br>
+    </div>
+    </div>
+    <div class="row">
+        <button  onclick="AddBottombutton()">Bottom</button><br>
+    <div class="column">
+    <p><strong id="AddBottom-Value1">Bottom</strong>
+        <span id="AddBottom-Value2">0</span></p>
+        <input type="range"  value="0" name="AddBottom" id="AddBottom" onchange="AddBottom()"><br>
+    </div>
+    <button onclick="AddRadiusbutton()">Border Radius</button><br>
+    <div class="column">
+    <p><strong id="AddRadius-Value1">Radius</strong>
+        <span id="AddRadius-Value2">0</span></p>
+    <input type="range" name="AddRadius" id="AddRadius" value="0"onchange="AddRadius()"><br>
+</div>
+</div>
+</div>
+
+    
+<!-------------------------------------------Footer------------------------------------------>
+
+
+<div id="footer">
+       <h3><i class="fa fa-copyright" aria-hidden="true"></i> Simple Image Editor 2022</h3> 
+    </div>
+    </div>
+    <canvas id="canvas2" height="0"></canvas>
+</body>
+<script type="text/javascript" src="Rotate.js"></script>
+<script type="text/javascript" src="Flip.js"></script>
+<script type="text/javascript" src="addimage.js"></script>
+<script type="text/javascript" src="nav.js"></script>
+<script type="text/javascript" src="Filterbutton.js"></script>
+<script type="text/javascript" src="filter.js"></script>
+<script type="text/javascript" src="TextTools.js"></script>
+<script type="text/javascript" src="imageTools.js"></script>
+<script type="text/javascript" src="ImageToolButton.js"></script>
+<script type="text/javascript" src="imageBorderButton.js"></script>
+<script type="text/javascript">
+
+/**************************************************** display the name *************************************/
+  
+  var name=prompt("Enter Your Name : ");
+  var akkaname=name.toLowerCase();
+  if(akkaname==="yogeshwari"){
+    document.getElementById("Name").innerHTML="Welcome You Akka"+"</br>"+"</br>"+"This Is For You Akka";
+  }else{
+document.getElementById("Name").innerHTML="Welcome You "+name;
+}
+
+/**************************************************** disabled the Button *****************************/
+
+var Disabled=document.querySelectorAll("#btn-disabled");
+    Disabled[0].disabled=true;
+    Disabled[1].disabled=true;
+    Disabled[2].disabled=true;
+    Disabled[3].disabled=true;
+    Disabled[4].disabled=false;
+    Disabled[5].disabled=true;
+    Disabled[6].disabled=true;
+    Disabled[7].disabled=true;
+    Disabled[8].disabled=true;
+    Disabled[9].disabled=true;
+
+/************************************************** upload The Image In to The Website***********************/
+
+  function image(event){
+    var choosedImage=document.getElementById("Choosed-image")
+    var download=document.getElementById("download");
+    var save=document.getElementById("save");
+    var choose=document.querySelector(".choose").style.display="none";
+    choosedImage.style.display="inline";
+    var uploadedImage=event.target;
+    const reader=new FileReader();
+    reader.onload=function(){
+        var URL=reader.result
+        choosedImage.src=URL;
+        download.href=URL;
+    };
+    reader.readAsDataURL(uploadedImage.files[0]);
+    var centerImage=document.querySelector(".screenshot");
+    centerImage.style="display: block";
+    var Disabled=document.querySelectorAll("#btn-disabled");
+    Disabled[0].disabled=false;
+    Disabled[1].disabled=false;
+    Disabled[2].disabled=false;
+    Disabled[3].disabled=false;
+    Disabled[4].disabled=false;
+    Disabled[5].disabled=false;
+    Disabled[6].disabled=false;
+    Disabled[7].disabled=false;
+    Disabled[8].disabled=false;
+    Disabled[9].disabled=false;
+};
+
+/********************************************************* pdf download ***************************************/
+
+function pdf(){
+        window.print();
+}
+
+/************************************************************** Save The Image *************************************/
+
+document.querySelector('#save-green').addEventListener('click', function() {
+html2canvas(document.querySelector(".problem"),{
+    dpi:192,
+    onrendered:function(canvas){
+        return Canvas2Image.saveAsJPEG(canvas)
+    }
+})
+
+});
+
+/**************************************************** exits the image ****************************************/
+
+function Exits(){
+    var choosedImage=document.getElementById("Choosed-image");
+    var centerImage=document.querySelector(".screenshot");
+    var choose=document.querySelector(".choose");
+    centerImage.style="display: flex;align-items: center;justify-content: center;justify-items: center;align-content: center;text-align:center";
+    choosedImage.style.border="none";
+    choosedImage.style.borderRadius="0%";
+    choosedImage.style.filter="none";
+    choosedImage.src="";
+    choosedImage.style.display="none";
+    choosedImage.alt="upload the image";
+    choose.style="margin-top:10%;;display:inline-block";
+    var Disabled=document.querySelectorAll("#btn-disabled");
+    Disabled[0].disabled=true;
+    Disabled[1].disabled=true;
+    Disabled[2].disabled=true;
+    Disabled[3].disabled=true;
+    Disabled[4].disabled=false;
+    Disabled[5].disabled=true;
+    Disabled[6].disabled=true;
+    Disabled[7].disabled=true;
+    Disabled[8].disabled=true;
+    Disabled[9].disabled=true;
+}
+</script>
+</html>
